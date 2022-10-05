@@ -16,21 +16,21 @@
             <div class="row">
                 <div class="col-md-3">
 
-                    <form method="post"> <!-- todo post action with thymeleaf-->
+                    <form th:object="${product}" th:action="@{/create-product}" method="post"> <!-- todo post action with thymeleaf-->
                         <div class="row">
                             <div class="form-group blu-margin" th:class="'form-group'">
                                 <label>Name</label>
-                                <input type="text" placeholder="name">  <!-- todo name attribute-->
+                                <input th:field="*{name}" th:value="${name}" type="text" placeholder="name">  <!-- todo name attribute-->
                             </div>
 
                             <div class="form-group blu-margin" th:class="'form-group'">
                                 <label >Price</label>
-                                <input type="number"  placeholder="price"> <!-- todo price attribute-->
+                                <input th:field="*{price}" th:value="${price}" type="number"  placeholder="price"> <!-- todo price attribute-->
                             </div>
 
                             <div class="form-group blu-margin" th:class="'form-group'">
                                 <label >RemainingQuantity</label>
-                                <input type="number" placeholder="remainingQuantity"> <!-- todo remainingQuantity attribute-->
+                                <input th:field="*{remainingQuantity}" th:value="${remainingQuantity}" type="number" placeholder="remainingQuantity"> <!-- todo remainingQuantity attribute-->
                             </div>
                         </div>
                         <div class="row">
