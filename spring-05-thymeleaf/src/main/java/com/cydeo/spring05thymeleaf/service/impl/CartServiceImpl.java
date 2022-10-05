@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart addToCart(UUID productId, Integer quantity){
         //todo retrieve product from repository method
-
+        //Check if product exists or not CartItem cartItem
         //todo initialise cart item
         //todo calculate cart total amount
         //todo add to cart
