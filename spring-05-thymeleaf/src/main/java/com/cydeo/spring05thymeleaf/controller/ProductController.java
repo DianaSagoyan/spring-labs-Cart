@@ -21,7 +21,11 @@ public class ProductController {
     }
 
     @GetMapping("/list" )
-    public String listPage(){
+    public String listPage(Model model){
+
+        List<Product> productList = productService.listProduct();
+        model.addAttribute("productList", productList);
+
         return "/product/list";
     }
 
@@ -35,7 +39,6 @@ public class ProductController {
 
     @GetMapping("/create-form")
     public String formPage(Model model){
-
         model.addAttribute("product", new Product());
         return "/product/create-product";
     }

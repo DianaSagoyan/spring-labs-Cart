@@ -13,5 +13,4 @@ import java.util.List;
 public class Cart {
     private BigDecimal cartTotalAmount;
     private List<CartItem> cartItemList;
-
 }

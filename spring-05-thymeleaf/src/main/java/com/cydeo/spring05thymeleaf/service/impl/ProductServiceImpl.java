@@ -21,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
     public boolean productCreate(Product product){
         product.setId(UUID.randomUUID());
         product.setQuantity(product.getQuantity());
+        productRepository.save(product);
         return true;
     }
 

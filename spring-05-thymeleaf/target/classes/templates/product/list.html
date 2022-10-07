@@ -29,12 +29,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product : ${productList}"> <!-- todo productlist-->
-                        <td th:text="${product.name}"></td><!-- todo product variables-->
-                        <td th:text="${product.price}"></td><!-- todo product variables-->
-                        <td th:text="${product.remainingQuantity}"></td><!-- todo product variables-->
+                    <tr th:each="product : ${productList}">
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.remainingQuantity}"></td>
                         <td>
-                            <a th:href="@{/addToCart/{id}(id=${product.id}) / {quantity}(quantity=${product.quantity})}" class="btn btn-primary">Add Cart<i></i></a> <!-- todo a href with two variables-->
+                            <a th:href="@{/addToCart/{id}/{quantity}(id=${product.id}, quantity=${product.quantity})}" class="btn btn-primary">Add Cart<i></i></a> <!-- todo a href with two variables-->
                         </td>
                     </tr>
                     </tbody>
