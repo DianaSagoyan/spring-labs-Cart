@@ -37,4 +37,12 @@ public class CartController {
 
         return "/cart/show-cart";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCartItem(@PathVariable("id") UUID id){
+
+        cartServiceImpl.deleteFromCart(id);
+
+        return "redirect:/cart/show-cart";
+    }
 }
