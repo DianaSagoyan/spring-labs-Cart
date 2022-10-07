@@ -32,7 +32,17 @@ public class CartServiceImpl implements CartService {
 
         if(cartItemList.stream().map(CartItem::getProduct).anyMatch(product -> product.getId().toString().equals(productId.toString()))){
 
+            CartItem cartItem = cartItemList.stream()
+                    .filter(cartItem1 -> cartItem1.getProduct().getId().toString().equals(productId.toString()))
+                    .findAny().orElseThrow();
 
+            Product product = cartItem.getProduct();
+
+            cartItem.setQuantity(product.getQuantity());
+            cartItem.setTotalAmount(product.getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())) );
+
+            CART.setCartItemList(cartItemList);
+            CART.setCartTotalAmount(CART.getCartTotalAmount().add((product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())))));
 
         }else{
             Product newProduct = productService.findProductById(productId);
@@ -40,8 +50,6 @@ public class CartServiceImpl implements CartService {
             cartItemList.add(cartItem);
             CART.setCartItemList(cartItemList);
         }
-
-
 
         return CART;
     }

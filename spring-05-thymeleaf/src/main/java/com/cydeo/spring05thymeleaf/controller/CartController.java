@@ -30,7 +30,7 @@ public class CartController {
         return "/cart/show-cart";
     }
 
-    @GetMapping("/addToCart")
+    @GetMapping("/addToCart{id}/{quantity}")
     public String addingToCart(@PathVariable("id")UUID id, @PathVariable("quantity") Integer quantity){
 
         cartServiceImpl.addToCart(id, quantity);
