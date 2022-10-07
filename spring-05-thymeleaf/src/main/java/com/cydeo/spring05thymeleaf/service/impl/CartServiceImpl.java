@@ -30,16 +30,30 @@ public class CartServiceImpl implements CartService {
         //todo calculate cart total amount
         //todo add to cart
 
-        productService.findProductById(productId);
-        CartItem cartItem = new CartItem();
+        if(cartItemList.stream().map(CartItem::getProduct).anyMatch(product -> product.getId().toString().equals(productId.toString()))){
+
+
+
+        }else{
+
+            Product newProduct = productService.findProductById(productId);
+
+            CartItem cartItem = new CartItem(newProduct, newProduct.getQuantity(), newProduct.getPrice().multiply(BigDecimal.valueOf(newProduct.getQuantity())));
+            cartItemList.add(cartItem);
+            CART.setCartItemList(cartItemList);
+        }
+
+
+
         return CART;
     }
 
     @Override
     public boolean deleteFromCart(UUID productId){
-        
+
         BigDecimal deletingPrice = CART.getCartItemList().stream()
-                .filter(cartItem -> cartItem.getProduct().getId().toString().equals(productId.toString())).findAny().orElseThrow().getProduct().getPrice();
+                .filter(cartItem -> cartItem.getProduct().getId().toString().equals(productId.toString()))
+                .findAny().orElseThrow().getProduct().getPrice();
 
         CART.setCartTotalAmount(CART.getCartTotalAmount().subtract(deletingPrice));
 
