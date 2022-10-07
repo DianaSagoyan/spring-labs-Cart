@@ -19,9 +19,17 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public boolean productCreate(Product product){
-        product.setId(UUID.randomUUID());
-        product.setQuantity(product.getQuantity());
-        productRepository.save(product);
+
+        if(productRepository.findAll().contains(product)){
+            int quantity = product.getQuantity();
+            product.setRemainingQuantity(product.getRemainingQuantity() + quantity);
+        }else {
+            product.setId(UUID.randomUUID());
+            product.setQuantity(product.getQuantity());
+            productRepository.save(product);
+        }
+
+
         return true;
     }
 
