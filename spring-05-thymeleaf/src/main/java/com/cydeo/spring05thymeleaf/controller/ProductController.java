@@ -30,17 +30,15 @@ public class ProductController {
     }
 
     @PostMapping ("/create-product")
-    public String insertProduct(Model model, @ModelAttribute("product") Product product){
-        List<Product> productList = productService.listProduct();
-        productList.add(product);
-        model.addAttribute("productList", productList);
-        return "/product/list";
-    }
-    @GetMapping ("/create-product")
-    public String createProduct( ){
-
+    public String insertProduct(@ModelAttribute("product") Product product){
+       productService.productCreate(product);
         return "redirect:/list";
     }
+//    @GetMapping ("/create-product")
+//    public String createProduct( ){
+//
+//        return "redirect:/list";
+//    }
 
     @GetMapping("/create-form")
     public String formPage(Model model){

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.UUID;
 
+import static com.cydeo.spring05thymeleaf.service.impl.CartServiceImpl.CART;
+
 @Controller
 public class CartController {
 
@@ -23,19 +25,17 @@ public class CartController {
 
     @GetMapping("/cart")
     public String cartPage(Model model){
-
-        model.addAttribute("cartItemList", cartServiceImpl.CART.getCartItemList());
-        model.addAttribute("cart", cartServiceImpl.CART);
-
+        model.addAttribute("cart", CART);
         return "/cart/show-cart";
     }
 
     @GetMapping("/addToCart/{id}/{quantity}")
-    public String addingToCart(@PathVariable("id")UUID id, @PathVariable("quantity") Integer quantity){
+    public String addingToCart(@PathVariable("id")UUID id,
+                               @PathVariable("quantity") Integer quantity){
 
         cartServiceImpl.addToCart(id, quantity);
 
-        return "/cart/show-cart";
+        return "redirect:/cart";
     }
 
     @GetMapping("/delete/{id}")
@@ -43,6 +43,6 @@ public class CartController {
 
         cartServiceImpl.deleteFromCart(id);
 
-        return "redirect:/cart/show-cart";
+        return "redirect:/cart";
     }
 }
