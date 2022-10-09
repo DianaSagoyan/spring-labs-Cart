@@ -23,10 +23,9 @@ public class ProductController {
     @GetMapping("/list" )
     public String listPage(Model model){
 
-        List<Product> productList = productService.listProduct();
-        model.addAttribute("productList", productList);
+        model.addAttribute("productList", productService.listProduct());
 
-        return "/product/list";
+        return "product/list";
     }
 
     @PostMapping ("/create-product")
@@ -34,11 +33,6 @@ public class ProductController {
        productService.productCreate(product);
         return "redirect:/list";
     }
-//    @GetMapping ("/create-product")
-//    public String createProduct( ){
-//
-//        return "redirect:/list";
-//    }
 
     @GetMapping("/create-form")
     public String formPage(Model model){
