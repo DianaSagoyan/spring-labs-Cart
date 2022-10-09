@@ -25,31 +25,15 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart addToCart(UUID productId, Integer quantity){
-        //todo retrieve product from repository method
-        //todo initialise cart item
-        //todo calculate cart total amount
-        //todo add to cart
+        Product product = productService.findProductById(productId);
 
-        if(cartItemList.stream().map(CartItem::getProduct).anyMatch(product -> product.getId().toString().equals(productId.toString()))){
+        CartItem cartItem = new CartItem();
+        cartItem.setProduct(product);
+        cartItem.setQuantity(quantity);
+        cartItem.setTotalAmount(product.getPrice().multiply(BigDecimal.valueOf(quantity) ));
 
-            CartItem cartItem = cartItemList.stream()
-                    .filter(cartItem1 -> cartItem1.getProduct().getId().toString().equals(productId.toString()))
-                    .findAny().orElseThrow();
-
-            Product product = cartItem.getProduct();
-
-            cartItem.setQuantity(product.getQuantity());
-            cartItem.setTotalAmount(product.getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())) );
-
-            CART.setCartItemList(cartItemList);
-            CART.setCartTotalAmount(CART.getCartTotalAmount().add((product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())))));
-
-        }else{
-            Product newProduct = productService.findProductById(productId);
-            CartItem cartItem = new CartItem(newProduct, newProduct.getQuantity(), newProduct.getPrice().multiply(BigDecimal.valueOf(newProduct.getQuantity())));
-            cartItemList.add(cartItem);
-            CART.setCartItemList(cartItemList);
-        }
+        CART.getCartItemList().add(cartItem);
+        CART.setCartTotalAmount(CART.getCartTotalAmount().add(cartItem.getTotalAmount()));
 
         return CART;
     }
