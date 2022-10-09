@@ -17,7 +17,6 @@ public class CartServiceImpl implements CartService {
     public static Cart CART = new Cart(BigDecimal.ZERO,new ArrayList<>());
 
     private final ProductService productService;
-    List<CartItem> cartItemList = new ArrayList<>();
 
     public CartServiceImpl(ProductService productService) {
         this.productService = productService;
